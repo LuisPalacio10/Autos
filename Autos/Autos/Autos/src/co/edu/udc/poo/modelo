@@ -1,0 +1,78 @@
+@startuml
+
+title CONCESIONARIO DE AUTOS
+
+ class Persona{
+ #id : int
+ #nombre : String
+ #apellido : String
+ #dni : int
+ #direccion : String
+ #telefono : int
+ }
+ 
+ class Vendedor{
+ }
+ 
+ class Cliente{
+ }
+ 
+ class Ventas{
+ -id : int
+ -vehiculoid : int
+ -vendedorid : int
+ -clienteid : int
+ -fechaventa : Date
+ }
+ 
+ class Vehiculo{
+ -id : int
+ -modeloid : String
+ -cilindraje : int
+ -precio : float
+ -matricula : String
+ -preciotasacion : float
+ }
+ 
+ class OpcionesAdicionales{
+ -vehiculoid : int
+ -adicionalid : int
+ }
+ 
+ class Adicional{
+ -id : int
+ -nombre : String
+ -descripcion : String
+ }
+ 
+ class Modelo{
+ -id : int
+ -nombre : String
+ -marcaid : int
+ }
+ 
+ class Marca{
+ -id : int
+ -nombre : String
+ -descripcion : String
+ }
+
+ Persona "1" <|-right- "1" Vendedor: Es una
+ 
+ Persona "1" <|-right- "1" Cliente: Es una
+ 
+ Vendedor "1" ---right- "1..*" Ventas : Realiza
+ 
+ Cliente "1" *---up-- "*" Ventas : Tiene
+ 
+ Vehiculo "1" ---up-- "1..*" Modelo : Tiene
+ 
+ Modelo "1" ---right-- "1" Marca : Dispone
+ 
+ Ventas "1" o---up- "1..*" Vehiculo : Posee
+ 
+ Vehiculo "1" o---right- "*" OpcionesAdicionales : Tiene
+ 
+ OpcionesAdicionales "*" o---up-- "1..*" Adicional : Tiene
+
+@enduml
